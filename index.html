@@ -7,12 +7,18 @@
       <link rel="stylesheet" href="style.css" />
    </head>
    <body>
-      <div id="primary-container" class="column padding-1 justify-evenly">
-         <div id="top-container" class="margin-1 padding-1">top-container</div>
-         <div id="content-container" class="row justify-evenly align-center margin-1 padding-1 gap">
-            <div id="left-content" class="padding-1">left-content</div>
-            <div id="middle-content" class="padding-1">middle-content</div>
-            <div id="right-content" class="padding-1">right-content</div>
+      <div id="primary-container" class="column padding-1">
+         <div id="top-container" class="row justify-between margin-1 padding-1 gap wrap">
+            <div id="data" class="row justify-center align-center flex">data-1:&nbsp<span id="data-1">0</span></div>
+            <div id="data" class="row justify-center align-center flex">data-2:&nbsp<span id="data-2">0</span></div>
+            <div id="data" class="row justify-center align-center flex">data-3:&nbsp<span id="data-3">0</span></div>
+            <div id="data" class="row justify-center align-center flex">data-4:&nbsp<span id="data-4">0</span></div>
+            <div id="data" class="row justify-center align-center flex">data-5:&nbsp<span id="data-5">0</span></div>
+         </div>
+         <div id="content-container" class="row justify-center margin-1 padding-1 gap wrap">
+            <div id="left-content" class="padding-1 grow shrink">left-content</div>
+            <div id="middle-content" class="padding-1 grow shrink">middle-content</div>
+            <div id="right-content" class="padding-1 grow shrink">right-content</div>
          </div>
       </div>
    </body>
