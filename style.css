@@ -9,6 +9,10 @@ body {
    font-size: 1.2em;
 }
 
+svg {
+   /* border: 2px solid black; */
+}
+
 #primary-container {
    height: 100%;
    width: 100%;
@@ -36,22 +40,19 @@ body {
 
    #left-content {
       height: auto;
-      width: 20%;
-      min-width: 300px;
+      min-width: 200px;
       background-color: rgb(141, 177, 124);
    }
 
    #middle-content {
       height: auto;
-      width: 50%;
       min-width: 300px;
       background-color: rgb(176, 159, 188);
    }
 
    #right-content {
       height: auto;
-      width: 20%;
-      min-width: 300px;
+      min-width: 180px;
       background-color: gray;
    }
 }
