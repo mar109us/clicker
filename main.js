@@ -34,9 +34,17 @@ function actionContent(section, event) {
 let pointAmount = 0;
 let pointIncreaseAmount = 10;
 
+
+let polygon = ""
+
 function addPoint() {
    pointAmount += pointIncreaseAmount;
    document.getElementById("data-1").innerText = pointAmount;
+
+   let randomPolygonPoint = Math.random() * (10 + 600) + 10;
+   polygon += "," + randomPolygonPoint + randomPolygonPoint
    document.getElementById("svg").innerHTML = `
-      <polygon points="100 100, 400 100, 250 400"/>`;
+      <polygon points="100 100, 400 100, 250 400 ${polygon}"/>`;
+
+      console.log(polygon)
 }
