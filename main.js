@@ -34,17 +34,19 @@ function actionContent(section, event) {
 let pointAmount = 0;
 let pointIncreaseAmount = 10;
 
-
-let polygon = ""
+let polygon = "";
 
 function addPoint() {
    pointAmount += pointIncreaseAmount;
    document.getElementById("data-1").innerText = pointAmount;
 
-   let randomPolygonPoint = Math.random() * (10 + 600) + 10;
-   polygon += "," + randomPolygonPoint + randomPolygonPoint
+   let randomPolygonPoint1 = Math.floor(Math.random() * 400);
+   let randomPolygonPoint2 = Math.floor(Math.random() * 400);
+   polygon += `, ${randomPolygonPoint1} ${randomPolygonPoint2}`;
+   /* polygon += randomPolygonPoint1;
+   polygon += randomPolygonPoint2; */
    document.getElementById("svg").innerHTML = `
-      <polygon points="100 100, 400 100, 250 400 ${polygon}"/>`;
+      <polygon points="200 400 ${polygon}"/>`;
 
-      console.log(polygon)
+   console.log(polygon);
 }
