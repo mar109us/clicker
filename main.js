@@ -4,10 +4,11 @@ const display3 = document.getElementById("data-3");
 const display4 = document.getElementById("data-4");
 
 const addPolygonButton = document.getElementById("button-add-polygon");
+const displayPolygonPrice = document.getElementById("polygon-price");
 
-let increasePolygonPrice = 100;
+let increasePolygonPrice = 10;
 let pointAmount = 0;
-let pointIncreaseAmount = 10;
+let pointIncreaseAmount = 1;
 
 let polygon = "";
 
@@ -46,12 +47,14 @@ function actionContent(section, event) {
    }
    if (section === "right") {
       console.log("[captured event]", event.target.id);
-      buyUpgrade(event.target.id)
+      buyUpgrade(event.target.id);
    }
 }
 
 function updateView() {
    displayMainPoints.innerText = pointAmount;
+   displayPolygonPrice.innerText = increasePolygonPrice;
+
    updateSVG();
    checkPrice();
 }
@@ -68,9 +71,11 @@ function checkPrice() {
 
 function buyUpgrade(id) {
    if (id === "button-add-polygon") {
-      pointAmount -= increasePolygonPrice
+      pointAmount -= increasePolygonPrice;
+      pointIncreaseAmount = Math.floor(pointIncreaseAmount * 2.5);
+      increasePolygonPrice = Math.floor(increasePolygonPrice * 3);
    }
-   updateSVGData()
+   updateSVGData();
 }
 
 function addPoint() {
