@@ -5,12 +5,14 @@ body {
    margin: 0;
    width: 100vw;
    height: 100vh;
-   background-color: rgb(215, 189, 155);
+   background-color: rgb(219, 208, 185);
    font-size: 1.2em;
 }
 
 svg {
-   /* border: 2px solid black; */
+   stroke: white;
+   stroke-width: 1px;
+   filter: drop-shadow(0px 0px 20px white)
 }
 
 #primary-container {
@@ -20,18 +22,18 @@ svg {
 
 #top-container {
    height: auto;
-   background-color: rgb(140, 183, 213);
+   background-color: rgb(85, 80, 80);
 
    #data {
       height: 50px;
       width: 20%;
-      background-color: rgb(182, 213, 140);
+      background-color: rgb(176, 182, 168);
    }
 }
 
 #content-container {
    height: 100%;
-   background-color: rgb(178, 123, 123);
+   background-color: rgb(85, 80, 80);
 
    button {
       min-width: 150px;
@@ -41,19 +43,19 @@ svg {
    #left-content {
       height: auto;
       min-width: 200px;
-      background-color: rgb(141, 177, 124);
+      background-color: rgb(255, 242, 222);
    }
 
    #middle-content {
       height: auto;
       min-width: 300px;
-      background-color: rgb(176, 159, 188);
+      background-color: white;
    }
 
    #right-content {
       height: auto;
       min-width: 180px;
-      background-color: gray;
+      background-color: rgb(255, 242, 222);
    }
 }
 
