@@ -31,15 +31,26 @@ function actionContent(section, event) {
    }
 }
 
+const displayMainPoints = document.getElementById("data-1");
+const displayPolygonPoints = document.getElementById("data-2");
+const display3 = document.getElementById("data-3");
+const display4 = document.getElementById("data-4");
+
+function updateView() {
+   displayMainPoints.innerText = pointAmount
+}
+
 let pointAmount = 0;
 let pointIncreaseAmount = 10;
 
-let polygon = "";
-
 function addPoint() {
    pointAmount += pointIncreaseAmount;
-   document.getElementById("data-1").innerText = pointAmount;
+   updateView()
+}
 
+let polygon = "";
+
+function createSVG() {
    let randomPolygonPoint1 = Math.floor(Math.random() * 500) + 10;
    let randomPolygonPoint2 = Math.floor(Math.random() * 600);
 
@@ -69,8 +80,6 @@ function addPoint() {
         fill-opacity="0.9" />
     </pattern>
   </defs>
-    <polygon points="200 300 ${polygon}" fill="url(#Pattern)"/>
+    <polygon points="200 300, 300 200 ${polygon}" fill="url(#Pattern)"/>
     `;
-
-   console.log(polygon);
 }
