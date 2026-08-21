@@ -12,6 +12,10 @@ let pointIncreaseAmount = 1;
 
 let polygon = "";
 
+let polygonArray = [200, 300, 300, 200, 100, 200];
+console.log(polygonArray);
+let currentPolygonString;
+
 let randomPolygonPoint1 = 0;
 let randomPolygonPoint2 = 0;
 
@@ -21,17 +25,17 @@ let randomColor3;
 
 addEventListener("click", (event) => {
    if (event.target.parentNode.id === "left-content") {
-      console.log("[click event]", event.target.parentNode.id);
+      // console.log("[click event]", event.target.parentNode.id);
       let section = "left";
       actionContent(section, event);
    }
    if (event.target.parentNode.id === "middle-content") {
-      console.log("[click event]", event.target.parentNode.id);
+      // console.log("[click event]", event.target.parentNode.id);
       let section = "middle";
       actionContent(section, event);
    }
    if (event.target.parentNode.id === "right-content") {
-      console.log("[click event]", event.target.parentNode.id);
+      // console.log("[click event]", event.target.parentNode.id);
       let section = "right";
       actionContent(section, event);
    }
@@ -39,14 +43,14 @@ addEventListener("click", (event) => {
 
 function actionContent(section, event) {
    if (section === "left") {
-      console.log("[captured event]", event.target.id);
+      // console.log("[captured event]", event.target.id);
       addPoint();
    }
    if (section === "middle") {
-      console.log("[captured event]", event.target.id);
+      // console.log("[captured event]", event.target.id);
    }
    if (section === "right") {
-      console.log("[captured event]", event.target.id);
+      // console.log("[captured event]", event.target.id);
       buyUpgrade(event.target.id);
    }
 }
@@ -84,27 +88,11 @@ function addPoint() {
 }
 
 function updateSVGData() {
-   if (pointAmount < 100) {
-      randomPolygonPoint1 = Math.floor(Math.random() * 50) + 450;
-      randomPolygonPoint2 = Math.floor(Math.random() * 50) + 450;
-   } else if (pointAmount < 200) {
-      randomPolygonPoint1 = Math.floor(Math.random() * 100) + 350;
-      randomPolygonPoint2 = Math.floor(Math.random() * 100) + 350;
-   } else if (pointAmount < 300) {
-      randomPolygonPoint1 = Math.floor(Math.random() * 200) + 250;
-      randomPolygonPoint2 = Math.floor(Math.random() * 200) + 250;
-   } else if (pointAmount < 400) {
-      randomPolygonPoint1 = Math.floor(Math.random() * 300) + 150;
-      randomPolygonPoint2 = Math.floor(Math.random() * 300) + 150;
-   } else if (pointAmount < 500) {
-      randomPolygonPoint1 = Math.floor(Math.random() * 400) + 50;
-      randomPolygonPoint2 = Math.floor(Math.random() * 400) + 50;
-   } else {
-      randomPolygonPoint1 = Math.floor(Math.random() * 500) + 10;
-      randomPolygonPoint2 = Math.floor(Math.random() * 600);
-   }
+   polygonArray.push(Math.floor(Math.random() * 500) + 10);
+   polygonArray.push(Math.floor(Math.random() * 600));
 
-   polygon += `, ${randomPolygonPoint1} ${randomPolygonPoint2}`;
+   randomPolygonPoint1 = Math.floor(Math.random() * 500) + 10;
+   randomPolygonPoint2 = Math.floor(Math.random() * 600);
 
    randomColor1 = Math.floor(Math.random() * 85) + 170;
    randomColor2 = Math.floor(Math.random() * 55) + 200;
@@ -114,6 +102,21 @@ function updateSVGData() {
 }
 
 function updateSVG() {
+   let polygonString = "";
+   let count = 0;
+   polygonArray.forEach((polygon) => {
+      if (count === 0) {
+         polygonString += `${polygon} `;
+         count++;
+      } else {
+         polygonString += `${polygon}`;
+         polygonString += `, `;
+         count = 0;
+      }
+      currentPolygonString = polygonString;
+   });
+   console.log(polygonString);
+
    document.getElementById("svg").innerHTML = `
    <defs>
     <linearGradient id="Gradient1">
@@ -136,6 +139,6 @@ function updateSVG() {
         fill-opacity="0.9" />
     </pattern>
   </defs>
-    <polygon points="200 300, 300 200, 100 200 ${polygon}" fill="url(#Pattern)"/>
+    <polygon points=" ${currentPolygonString}" fill="url(#Pattern)"/>
     `;
 }
