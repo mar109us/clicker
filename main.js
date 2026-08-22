@@ -117,28 +117,36 @@ function updateSVG() {
    });
    console.log(polygonString);
 
-   document.getElementById("svg").innerHTML = `
-   <defs>
-    <linearGradient id="Gradient1">
-      <stop offset="5%" stop-color="rgb(${randomColor3}, ${randomColor2}, ${randomColor1})" />
-      <stop offset="95%" stop-color="rgb(${randomColor1}, ${randomColor1}, ${randomColor3})" />
-    </linearGradient>
-    <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="5%" stop-color="rgb(${randomColor1}, ${randomColor2}, ${randomColor3})" />
-      <stop offset="95%" stop-color="rgb(${randomColor3}, ${randomColor3}, ${randomColor1})" />
-    </linearGradient>
+   document.getElementById("middle-content").innerHTML = `
+   <svg id="svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+         <linearGradient id="Gradient1">
+            <stop offset="5%" stop-color="rgb(${randomColor3}, ${randomColor2}, ${randomColor1})" />
+            <stop offset="95%" stop-color="rgb(${randomColor1}, ${randomColor1}, ${randomColor3})" />
+         </linearGradient>
+         <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="5%" stop-color="rgb(${randomColor1}, ${randomColor2}, ${randomColor3})" />
+            <stop offset="95%" stop-color="rgb(${randomColor3}, ${randomColor3}, ${randomColor1})" />
+         </linearGradient>
 
-    <pattern id="Pattern" x="0" y="0" width="${randomPolygonPoint1}" height="${randomPolygonPoint1}">
-      <rect x="0" y="0" width="${randomPolygonPoint1}" height="${randomPolygonPoint2}" fill="rgb(${randomColor3}, ${randomColor1}, ${randomColor3})" />
-      <rect x="0" y="0" width="${randomPolygonPoint2}" height="${randomPolygonPoint1}" fill="url(#Gradient2)" />
-      <circle
-        cx="${randomPolygonPoint2}"
-        cy="${randomPolygonPoint1}"
-        r="${randomPolygonPoint2}"
-        fill="url(#Gradient1)"
-        fill-opacity="0.9" />
-    </pattern>
-  </defs>
-    <polygon points=" ${currentPolygonString}" fill="url(#Pattern)"/>
+         <pattern id="Pattern" x="0" y="0" width="${randomPolygonPoint1}" height="${randomPolygonPoint1}">
+            <rect x="0" y="0" 
+            width="${randomPolygonPoint1}" 
+            height="${randomPolygonPoint2}" 
+            fill="rgb(${randomColor3}, ${randomColor1}, ${randomColor3})" />
+            <rect x="0" y="0" 
+            width="${randomPolygonPoint2}" 
+            height="${randomPolygonPoint1}" fill="url(#Gradient2)" />
+            <circle
+            cx="${randomPolygonPoint2}"
+            cy="${randomPolygonPoint1}"
+            r="${randomPolygonPoint2}"
+            fill="url(#Gradient1)"
+            fill-opacity="0" />
+         </pattern>
+      </defs>
+   
+      <polygon points=" ${currentPolygonString}" fill="url(#Gradient2)"/>
+   </svg>
     `;
 }
