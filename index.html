@@ -10,7 +10,7 @@
       <div id="primary-container" class="column">
          <div id="top-container" class="row justify-between padding-1 gap wrap">
             <div id="data" class="row justify-center align-center flex gap">
-               <span>Points</span>
+               <span>Vertices</span>
                <span id="data-1">0</span>
             </div>
             <div id="data" class="row justify-center align-center flex gap">
@@ -27,13 +27,10 @@
             </div>
          </div>
          <div id="content-container" class="row justify-evenly padding-1 gap wrap grow">
-            <div id="left-content" class="row justify-evenly align-center padding-1 gap wrap grow">
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
+            <div id="left-content" class="column justify-between align-center gap wrap">
+               <button id="button-grow" class="column justify-between">
+                  Generate vertices<span id="span-increase">+<span id="vertice-increment"></span></span>
+               </button>
                <button id="button-grow">Grow art</button>
                <button id="button-grow">Grow art</button>
                <button id="button-grow">Grow art</button>
@@ -44,14 +41,9 @@
             <div id="middle-content" class="row justify-center grow shrink">
                <div id="svg-container" class="padding-2"></div>
             </div>
-            <div id="right-content" class="row justify-evenly align-center padding-1 gap wrap grow">
-               <button id="button-add-polygon">Add polygon (<span id="polygon-price"></span>)</button>
+            <div id="right-content" class="column justify-between align-center gap wrap">
+               <button id="button-add-polygon" class="column justify-between">Insert polygon<span id="span-decrease">-<span id="polygon-price"></span></span></button>
                <button id="">upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
                <button>upgrade 1</button>
                <button>upgrade 1</button>
                <button>upgrade 1</button>

@@ -3,6 +3,8 @@ const displayPolygonPoints = document.getElementById("data-2");
 const display3 = document.getElementById("data-3");
 const display4 = document.getElementById("data-4");
 
+const verticeIncrement = document.getElementById("vertice-increment");
+
 const addPolygonButton = document.getElementById("button-add-polygon");
 const displayPolygonPrice = document.getElementById("polygon-price");
 
@@ -59,6 +61,7 @@ function actionContent(section, event) {
 }
 
 function updateView() {
+   verticeIncrement.innerText = pointIncreaseAmount
    displayMainPoints.innerText = pointAmount;
    displayPolygonPrice.innerText = increasePolygonPrice;
 
