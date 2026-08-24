@@ -12,7 +12,9 @@ let pointIncreaseAmount = 1;
 
 let polygon = "";
 
-let polygonArray = [200, 300, 300, 200, 100, 200];
+// let polygonArray = [200, 300, 300, 200, 100, 200];
+// let polygonArray = [0, 0, 100, 0, 100, 100];
+let polygonArray = [];
 console.log(polygonArray);
 let currentPolygonString;
 
@@ -24,6 +26,7 @@ let randomColor2;
 let randomColor3;
 
 addEventListener("click", (event) => {
+   console.log(event);
    if (event.target.parentNode.id === "left-content") {
       // console.log("[click event]", event.target.parentNode.id);
       let section = "left";
@@ -61,8 +64,13 @@ function updateView() {
 
    updateSVG();
    checkPrice();
+   updatePolygonDisplay();
 }
 updateView();
+
+function updatePolygonDisplay() {
+   displayPolygonPoints.innerText = polygonArray.length / 2;
+}
 
 function checkPrice() {
    if (pointAmount < increasePolygonPrice) {
@@ -88,11 +96,11 @@ function addPoint() {
 }
 
 function updateSVGData() {
-   polygonArray.push(Math.floor(Math.random() * 500) + 10);
-   polygonArray.push(Math.floor(Math.random() * 600));
+   polygonArray.push(Math.floor(Math.random() * 100));
+   polygonArray.push(Math.floor(Math.random() * 100));
 
-   randomPolygonPoint1 = Math.floor(Math.random() * 500) + 10;
-   randomPolygonPoint2 = Math.floor(Math.random() * 600);
+   randomPolygonPoint1 = Math.floor(Math.random() * 100);
+   randomPolygonPoint2 = Math.floor(Math.random() * 100);
 
    randomColor1 = Math.floor(Math.random() * 85) + 170;
    randomColor2 = Math.floor(Math.random() * 55) + 200;
@@ -117,8 +125,9 @@ function updateSVG() {
    });
    console.log(polygonString);
 
-   document.getElementById("middle-content").innerHTML = `
-   <svg id="svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+   document.getElementById("svg-container").innerHTML = `
+   
+   <svg id="svg" width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
          <linearGradient id="Gradient1">
             <stop offset="5%" stop-color="rgb(${randomColor3}, ${randomColor2}, ${randomColor1})" />
