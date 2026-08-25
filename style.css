@@ -7,7 +7,7 @@
 }
 
 html {
-   touch-action: manipulation;
+   
 }
 body {
    margin: 0;
@@ -19,6 +19,7 @@ body {
 }
 button {
    font-size: 0.9em;
+   touch-action: none;
 }
 
 span {
