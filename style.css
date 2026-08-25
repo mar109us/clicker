@@ -5,6 +5,10 @@
 
    /* overflow: hidden; */
 }
+
+html {
+   touch-action: manipulation;
+}
 body {
    margin: 0;
    width: 100vw;
@@ -15,7 +19,6 @@ body {
 }
 button {
    font-size: 0.9em;
-   touch-action: manipulation;
 }
 
 span {
