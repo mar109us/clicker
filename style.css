@@ -15,6 +15,7 @@ body {
 }
 button {
    font-size: 0.9em;
+   touch-action: manipulation;
 }
 
 span {
