@@ -4,20 +4,23 @@ const display3 = document.getElementById("data-3");
 const display4 = document.getElementById("data-4");
 
 const verticeIncrement = document.getElementById("vertice-increment");
+const verticeAutoIncrement = document.getElementById("auto-increment");
 
 const addPolygonButton = document.getElementById("button-add-polygon");
+const addArtistButton = document.getElementById("button-auto-increment");
+
 const displayPolygonPrice = document.getElementById("polygon-price");
 
-let increasePolygonPrice = 10;
+let increasePolygonPrice = 25;
+let verticeAutoIncrementPrice = 500;
+
 let pointAmount = 0;
 let pointIncreaseAmount = 1;
+let pointAutoIncreaseAmount = 0;
 
 let polygon = "";
 
-// let polygonArray = [200, 300, 300, 200, 100, 200];
-// let polygonArray = [0, 0, 100, 0, 100, 100];
 let polygonArray = [];
-console.log(polygonArray);
 let currentPolygonString;
 
 let randomPolygonPoint1 = 0;
@@ -49,7 +52,12 @@ addEventListener("click", (event) => {
 function actionContent(section, event) {
    if (section === "left") {
       // console.log("[captured event]", event.target.id);
-      addPoint();
+      if (event.target.id === "button-increment") {
+         addPoint();
+      }
+      if (event.target.id === "button-auto-increment") {
+         buyUpgrade(event.target.id);
+      }
    }
    if (section === "middle") {
       // console.log("[captured event]", event.target.id);
@@ -61,15 +69,22 @@ function actionContent(section, event) {
 }
 
 function updateView() {
-   verticeIncrement.innerText = pointIncreaseAmount
-   displayMainPoints.innerText = pointAmount;
-   displayPolygonPrice.innerText = increasePolygonPrice;
-
-   updateSVG();
+   updateData();
    checkPrice();
-   updatePolygonDisplay();
 }
 updateView();
+
+setInterval(() => {
+   pointAmount += pointAutoIncreaseAmount;
+   updateView();
+}, 1000);
+
+function updateData() {
+   displayMainPoints.innerText = pointAmount;
+   verticeIncrement.innerText = pointIncreaseAmount;
+   displayPolygonPrice.innerText = increasePolygonPrice;
+   verticeAutoIncrement.innerText = verticeAutoIncrementPrice;
+}
 
 function updatePolygonDisplay() {
    displayPolygonPoints.innerText = polygonArray.length / 2;
@@ -82,19 +97,41 @@ function checkPrice() {
    if (pointAmount >= increasePolygonPrice) {
       addPolygonButton.disabled = false;
    }
+   if (pointAmount < verticeAutoIncrementPrice) {
+      addArtistButton.disabled = true;
+   }
+   if (pointAmount >= verticeAutoIncrementPrice) {
+      addArtistButton.disabled = false;
+   }
 }
 
 function buyUpgrade(id) {
    if (id === "button-add-polygon") {
       pointAmount -= increasePolygonPrice;
-      pointIncreaseAmount = Math.floor(pointIncreaseAmount * 2.5);
-      increasePolygonPrice = Math.floor(increasePolygonPrice * 3);
+      // pointIncreaseAmount = Math.floor(pointIncreaseAmount * 2.5);
+      // increasePolygonPrice = Math.floor(increasePolygonPrice * 3);
+      pointIncreaseAmount = pointIncreaseAmount + 2;
+      increasePolygonPrice = increasePolygonPrice + 25;
+
+      updateSVG();
+      updateSVGData();
+      updatePolygonDisplay();
    }
-   updateSVGData();
+   if (id === "button-auto-increment") {
+      pointAmount -= verticeAutoIncrementPrice;
+      pointAutoIncreaseAmount++;
+      // verticeAutoIncrementPrice = Math.floor(verticeAutoIncrementPrice * 2.426);
+      verticeAutoIncrementPrice = verticeAutoIncrementPrice + 100;
+   }
+   addIncrement();
 }
 
 function addPoint() {
    pointAmount += pointIncreaseAmount;
+   updateView();
+}
+
+function addIncrement() {
    updateView();
 }
 
