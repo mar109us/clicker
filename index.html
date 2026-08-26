@@ -9,50 +9,39 @@
    <body>
       <div id="primary-container" class="column">
          <div id="top-container" class="row justify-between padding-1 gap wrap">
-            <div id="data" class="row justify-center align-center flex gap">
-               <span>Vertices</span>
-               <span id="data-1">0</span>
+            <div id="data" class="column justify-evenly align-center flex" style="border-top-left-radius: 40px;">
+               <span>vertices</span>
+               <span id="display-bank-vertex">0</span>
             </div>
-            <div id="data" class="row justify-center align-center flex gap">
-               <span>Polygons</span>
-               <span id="data-2">0</span>
+            <div id="data" class="column justify-evenly align-center flex">
+               <span>edges</span>
+               <span id="display-bank-edge">0</span>
             </div>
-            <div id="data" class="row justify-center align-center flex gap">
-               <span>Triangles</span>
-               <span id="data-3">0</span>
+            <div id="data" class="column justify-evenly align-center flex">
+               <span>polygons</span>
+               <span id="display-bank-polygon">0</span>
             </div>
-            <div id="data" class="row justify-center align-center flex gap">
-               <span>Something</span>
-               <span id="data-4">0</span>
+            <div id="data" class="column justify-evenly align-center flex" style="border-top-right-radius: 40px;">
+               <span>meshes</span>
+               <span id="display-bank-mesh">0</span>
             </div>
          </div>
          <div id="content-container" class="row justify-evenly padding-1 gap wrap grow">
             <div id="left-content" class="column align-center gap wrap">
-               <button id="button-increment" class="column justify-between">
-                  Generate vertices<span id="span-increase">+<span id="vertice-increment"></span></span>
+               <button id="increment-vertex" class="column justify-between">
+                  collect vertex<span id="span-increase">+<span id="price-increment-vertex"></span></span>
                </button>
-               <button id="button-auto-increment" class="column justify-between">
-                  Hire artist<span id="span-decrease">-<span id="auto-increment"></span></span>
+               <button id="auto-increment-vertex" class="column justify-between">
+                  employ artist<span id="span-decrease">-<span id="price-auto-increment-vertex"></span></span>
                </button>
-               <!-- <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button>
-               <button id="button-grow">Grow art</button> -->
             </div>
             <div id="middle-content" class="row justify-center grow shrink">
                <div id="svg-container" class="padding-2"></div>
             </div>
             <div id="right-content" class="column align-center gap wrap">
-               <button id="button-add-polygon" class="column justify-between">
-                  Insert polygon<span id="span-decrease">-<span id="polygon-price"></span></span>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
                </button>
-               <!-- <button id="">upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button>
-               <button>upgrade 1</button> -->
             </div>
          </div>
       </div>

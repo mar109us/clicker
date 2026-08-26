@@ -19,7 +19,7 @@ button {
 }
 button[disabled] {
    touch-action: none;
-   opacity: 0.4;
+   /* opacity: 0.4; */
 }
 
 span {
@@ -75,7 +75,7 @@ polygon {
    background-color: rgb(85, 80, 80);
 
    #data {
-      height: 50px;
+      height: 90px;
       width: 20%;
       background-color: rgb(176, 182, 168);
    }
