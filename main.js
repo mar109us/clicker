@@ -31,42 +31,13 @@ let randomColor2;
 let randomColor3;
 
 addEventListener("click", (event) => {
-   console.log(event);
-   if (event.target.parentNode.id === "left-content") {
-      // console.log("[click event]", event.target.parentNode.id);
-      let section = "left";
-      actionContent(section, event);
+   if (event.target.id === "button-increment") {
+      addPoint();
    }
-   if (event.target.parentNode.id === "middle-content") {
-      // console.log("[click event]", event.target.parentNode.id);
-      let section = "middle";
-      actionContent(section, event);
-   }
-   if (event.target.parentNode.id === "right-content") {
-      // console.log("[click event]", event.target.parentNode.id);
-      let section = "right";
-      actionContent(section, event);
-   }
-});
-
-function actionContent(section, event) {
-   if (section === "left") {
-      // console.log("[captured event]", event.target.id);
-      if (event.target.id === "button-increment") {
-         addPoint();
-      }
-      if (event.target.id === "button-auto-increment") {
-         buyUpgrade(event.target.id);
-      }
-   }
-   if (section === "middle") {
-      // console.log("[captured event]", event.target.id);
-   }
-   if (section === "right") {
-      // console.log("[captured event]", event.target.id);
+   if (event.target.id === "button-auto-increment") {
       buyUpgrade(event.target.id);
    }
-}
+});
 
 let intervalTime = 3000;
 let clearConsole = 0;
@@ -98,7 +69,7 @@ function updateData() {
    verticeIncrement.innerText = pointIncreaseAmount;
    displayPolygonPrice.innerText = increasePolygonPrice;
    verticeAutoIncrement.innerText = verticeAutoIncrementPrice;
-   display3.innerText = Math.floor((polygonArray.length / 2) / 3);
+   display3.innerText = Math.floor(polygonArray.length / 2 / 3);
 }
 
 function updatePolygonDisplay() {
