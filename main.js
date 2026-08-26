@@ -12,7 +12,7 @@ const addArtistButton = document.getElementById("button-auto-increment");
 const displayPolygonPrice = document.getElementById("polygon-price");
 
 let increasePolygonPrice = 25;
-let verticeAutoIncrementPrice = 500;
+let verticeAutoIncrementPrice = 1;
 
 let pointAmount = 0;
 let pointIncreaseAmount = 1;
@@ -68,22 +68,37 @@ function actionContent(section, event) {
    }
 }
 
+let intervalTime = 3000;
+let clearConsole = 0;
+let timerId;
+
 function updateView() {
    updateData();
    checkPrice();
+   console.log("updateView");
 }
 updateView();
 
-setInterval(() => {
+function intervalTask() {
    pointAmount += pointAutoIncreaseAmount;
+   console.log(intervalTime);
+   if (clearConsole === 10) {
+      console.clear();
+      clearConsole = 0;
+   } else {
+      clearConsole++;
+   }
+   timerId = setTimeout(intervalTask, intervalTime);
    updateView();
-}, 1000);
+}
+timerId = setTimeout(intervalTask, intervalTime);
 
 function updateData() {
    displayMainPoints.innerText = pointAmount;
    verticeIncrement.innerText = pointIncreaseAmount;
    displayPolygonPrice.innerText = increasePolygonPrice;
    verticeAutoIncrement.innerText = verticeAutoIncrementPrice;
+   display3.innerText = Math.floor((polygonArray.length / 2) / 3);
 }
 
 function updatePolygonDisplay() {
@@ -118,20 +133,22 @@ function buyUpgrade(id) {
       updatePolygonDisplay();
    }
    if (id === "button-auto-increment") {
+      if (pointAutoIncreaseAmount === 0) {
+         pointAutoIncreaseAmount = 1;
+      } else if (intervalTime === 10) {
+         pointAutoIncreaseAmount++;
+      } else {
+         intervalTime = intervalTime - 10;
+      }
       pointAmount -= verticeAutoIncrementPrice;
-      pointAutoIncreaseAmount++;
       // verticeAutoIncrementPrice = Math.floor(verticeAutoIncrementPrice * 2.426);
-      verticeAutoIncrementPrice = verticeAutoIncrementPrice + 100;
+      verticeAutoIncrementPrice = verticeAutoIncrementPrice + 1;
    }
-   addIncrement();
+   updateView();
 }
 
 function addPoint() {
    pointAmount += pointIncreaseAmount;
-   updateView();
-}
-
-function addIncrement() {
    updateView();
 }
 
