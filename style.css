@@ -1,20 +1,19 @@
 * {
    box-sizing: border-box;
-   font-family: sans-serif;
-   font-weight: 100;
-
-   overflow: hidden;
+   font-family: "Staatliches", sans-serif;
+   font-weight: 400;
+   font-style: normal;
 }
 
 body {
    margin: 0;
+   padding: 1em;
    width: 100vw;
    height: 100vh;
-   font-size: 1.2em;
+   font-size: 1em;
    background-color: rgb(219, 208, 185);
 }
 button {
-   font-size: 0.9em;
    touch-action: manipulation;
 }
 button[disabled] {
@@ -30,6 +29,9 @@ svg {
    animation-duration: 6s;
    animation-name: polygon-transition;
    border-radius: 100%;
+   scale: 70%;
+   background-color: white;
+   border: solid 10px white;
 }
 
 @keyframes polygon-transition {
@@ -39,7 +41,7 @@ svg {
       transform: rotate(0deg);
    }
    40% {
-      scale: 100%;
+      scale: 70%;
       opacity: 0.7;
    }
    100% {
@@ -50,7 +52,7 @@ svg {
 
 polygon {
    scale: 120%;
-   stroke: white;
+   stroke: black;
    stroke-width: 0.1px;
    transform-origin: center;
    transform-box: fill-box;
@@ -68,32 +70,48 @@ polygon {
 
 #primary-container {
    height: 100%;
-   /* width: 100%; */
 }
 
 #top-container {
    background-color: rgb(85, 80, 80);
 
    #data {
-      height: 90px;
+      height: 120px;
       width: 20%;
-      background-color: rgb(176, 182, 168);
+      background-color: rgb(91, 91, 91);
+      color: black;
       position: relative;
-      
+   }
+
+   #bank-text {
+      align-self: center;
+      /* writing-mode: vertical-rl;
+      text-orientation: upright; */
    }
 
    #display-bank-vertex-timer {
       position: absolute;
-      background-color: gold;
+      background: linear-gradient(135deg, #f8e08e 0%, #e2a938 100%);
       height: inherit;
-      align-self:flex-start;
+      align-self: flex-start;
+      height: 3px;
+      bottom: 0;
+   }
+   #set-right {
+      justify-content: flex-end;
+   }
+
+   #display-bank-vertex,
+   #display-bank-edge,
+   #display-bank-polygon,
+   #display-bank-mesh {
+      font-size: 3em;
    }
 }
 
 #content-container {
    /* height: 100%; */
    /* min-height: 0; */
-   background-color: rgb(85, 80, 80);
    span {
       margin: 0px;
       padding: 1px;
@@ -106,22 +124,26 @@ polygon {
       background-color: rgba(213, 95, 84, 0.5);
    }
    button {
-      width: 170px;
-      height: 80px;
+      font-size: 1em;
+      width: 40%;
+      height: 70px;
+      /* width: 170px;
+      height: 80px; */
       /* margin: 0px; */
       padding-top: 5px;
       padding-bottom: 5px;
    }
 
    #left-content {
-      max-width: 20%;
+      background-color: rgb(85, 80, 80);
+
+      max-width: 30%;
       width: auto;
    }
 
    #middle-content {
       min-width: 40%;
-
-      background-color: white;
+      max-width: 50%;
 
       #svg-container {
          /* height: auto; */
@@ -129,11 +151,14 @@ polygon {
          width: auto;
          /* width: 100%; */
          /* flex: 1 1 0%; */
+         background-color: rgb(219, 208, 185);
       }
    }
 
    #right-content {
-      max-width: 20%;
+      background-color: rgb(85, 80, 80);
+
+      max-width: 30%;
       width: auto;
    }
 }
@@ -189,7 +214,7 @@ polygon {
 }
 
 .align-start {
-   align-items: flex-start;
+   align-items: flex-end;
 }
 
 .padding-1 {

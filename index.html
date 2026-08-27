@@ -4,20 +4,32 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Click</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet" />
       <link rel="stylesheet" href="style.css" />
    </head>
    <body>
-      <div id="primary-container" class="column">
+      <div id="primary-container" class="column padding-1 gap">
          <div id="top-container" class="row justify-between padding-1 gap wrap">
-            <div id="data" class="column justify-evenly align-center gap">
-               <span style="z-index:50;">vertices</span>
-               <span style="z-index:50;" id="display-bank-vertex">0</span>
-               <span style="z-index: 1"  id="display-bank-vertex-timer"></span>
-            </div>
             <div id="data" class="column justify-evenly align-center flex">
-               <span>edges</span>
-               <span id="display-bank-edge">0</span>
-               <span id="display-bank-edge-timer"> edge-timer </span>
+               <div class="column">
+                  <span id="bank-text" style="z-index: 50">VERTEX</span>
+                  <div id="set-right" class="row align-center">
+                     <span style="z-index: 50" id="display-bank-vertex">0</span>
+                  </div>
+               </div>
+               <span style="z-index: 1" id="display-bank-vertex-timer"></span>
+            </div>
+
+            <div id="data" class="column justify-evenly align-center flex">
+               <div class="column">
+                  <span id="bank-text" style="z-index: 50">edges</span>
+                  <div id="set-right" class="row align-center">
+                     <span id="display-bank-edge">0</span>
+                  </div>
+               </div>
+               <span style="z-index: 1" id="display-bank-edge-timer"> edge-timer </span>
             </div>
             <div id="data" class="column justify-evenly align-center flex">
                <span>polygons</span>
@@ -30,24 +42,43 @@
                <span id="display-bank-mesh-timer"> mesh-timer </span>
             </div>
          </div>
-
-         <div id="content-container" class="row justify-evenly padding-1 gap wrap grow">
-            <div id="left-content" class="column align-center gap wrap">
+         <div id="content-container" class="row gap wrap grow">
+            <div id="left-content" class="row justify-between padding-1 gap grow wrap">
                <button id="increment-vertex" class="column justify-between">
-                  collect vertex<span id="span-increase">+<span id="price-increment-vertex"></span></span>
+                  collect vertex<span id="span-increase">+<span id="price-increment-vertex"></span> vertex</span>
                </button>
                <button id="auto-increment-vertex" class="column justify-between">
                   employ artist<span id="span-decrease">-<span id="price-auto-increment-vertex"></span></span>
                </button>
-            </div>
-            <div id="middle-content" class="row justify-center grow shrink">
-               <div id="svg-container" class="padding-2"></div>
-            </div>
-            <div id="right-content" class="column align-center gap wrap">
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
+               <button id="increment-edge" class="column justify-between">
+                  generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
+               </button>
                <button id="increment-edge" class="column justify-between">
                   generate edge<span id="span-decrease">-<span id="price-increment-edge"></span></span>
                </button>
             </div>
+            <div id="middle-content" class="row justify-center grow shrink">
+               <div id="svg-container"></div>
+            </div>
+            <div id="right-content" class="row justify-between padding-1 gap wrap grow"></div>
          </div>
       </div>
    </body>

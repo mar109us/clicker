@@ -23,7 +23,7 @@ const edge = {
    },
 };
 
-let priceEdgeIncrement = 25;
+let priceEdge = 25;
 let priceVertexAuto = 1;
 
 let bankVertex = 100000;
@@ -33,7 +33,7 @@ let autoVertexInterval = 0;
 let timerInterval = 1000;
 let timerId;
 
-let svgEdgeArray = [0, 0];
+let svgEdgeArray = [];
 let svgEdge = "";
 let svgCurrentEdge;
 
@@ -77,16 +77,15 @@ function intervalTask() {
       currentwidth = 0;
       displayVertexTimer.style.width = `${currentwidth}%`;
       bankVertex += autoVertexInterval;
-      updateView()
+      updateView();
    }
    timerId = setTimeout(intervalTask, 0);
-   
 }
 
 function updateData() {
    bank.vertex.innerText = bankVertex;
    vertex.increment.price.innerText = priceVertexIncrement;
-   edge.increment.price.innerText = priceEdgeIncrement;
+   edge.increment.price.innerText = priceEdge;
    vertex.auto.price.innerText = priceVertexAuto;
    bank.polygon.innerText = Math.floor(svgEdgeArray.length / 2 / 3);
 }
@@ -96,10 +95,10 @@ function updatePolygonDisplay() {
 }
 
 function checkPrice() {
-   if (bankVertex < priceEdgeIncrement) {
+   if (bankVertex < priceEdge) {
       edge.increment.button.disabled = true;
    }
-   if (bankVertex >= priceEdgeIncrement) {
+   if (bankVertex >= priceEdge) {
       edge.increment.button.disabled = false;
    }
    if (bankVertex < priceVertexAuto) {
@@ -112,9 +111,9 @@ function checkPrice() {
 
 function buyUpgrade(id) {
    if (id === "increment-edge") {
-      bankVertex -= priceEdgeIncrement;
+      bankVertex -= priceEdge;
       priceVertexIncrement = priceVertexIncrement + 2;
-      priceEdgeIncrement = priceEdgeIncrement + 25;
+      priceEdge = priceEdge + 25;
 
       updateSVG();
       updateSVGData();
