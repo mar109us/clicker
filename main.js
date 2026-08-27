@@ -30,7 +30,7 @@ let bankVertex = 100000;
 let priceVertexIncrement = 1;
 let autoVertexInterval = 0;
 
-let timerInterval = 3000;
+let timerInterval = 1000;
 let timerId;
 
 let svgEdgeArray = [0, 0];
@@ -59,12 +59,29 @@ function updateView() {
 }
 updateView();
 
+let vertexTimer;
+let displayVertexTimer = document.getElementById("display-bank-vertex-timer");
+
+let intervalVertexTimer;
+
+let count = 0;
+let currentwidth = 0;
 function intervalTask() {
-   bankVertex += autoVertexInterval;
-   timerId = setTimeout(intervalTask, timerInterval);
-   updateView();
+   let widthFraction = 100 / timerInterval;
+   if (count < timerInterval) {
+      currentwidth += widthFraction;
+      count += 1;
+      displayVertexTimer.style.width = `${currentwidth}%`;
+   } else {
+      count = 0;
+      currentwidth = 0;
+      displayVertexTimer.style.width = `${currentwidth}%`;
+      bankVertex += autoVertexInterval;
+      updateView()
+   }
+   timerId = setTimeout(intervalTask, 0);
+   
 }
-timerId = setTimeout(intervalTask, timerInterval);
 
 function updateData() {
    bank.vertex.innerText = bankVertex;
@@ -106,7 +123,8 @@ function buyUpgrade(id) {
    if (id === "auto-increment-vertex") {
       if (autoVertexInterval === 0) {
          autoVertexInterval = 1;
-      } else if (timerInterval === 10) {
+         timerId = setTimeout(intervalTask, 10);
+      } else if (timerInterval === 100) {
          autoVertexInterval++;
       } else {
          timerInterval = timerInterval - 10;

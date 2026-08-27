@@ -9,23 +9,28 @@
    <body>
       <div id="primary-container" class="column">
          <div id="top-container" class="row justify-between padding-1 gap wrap">
-            <div id="data" class="column justify-evenly align-center flex" style="border-top-left-radius: 40px;">
-               <span>vertices</span>
-               <span id="display-bank-vertex">0</span>
+            <div id="data" class="column justify-evenly align-center gap">
+               <span style="z-index:50;">vertices</span>
+               <span style="z-index:50;" id="display-bank-vertex">0</span>
+               <span style="z-index: 1"  id="display-bank-vertex-timer"></span>
             </div>
             <div id="data" class="column justify-evenly align-center flex">
                <span>edges</span>
                <span id="display-bank-edge">0</span>
+               <span id="display-bank-edge-timer"> edge-timer </span>
             </div>
             <div id="data" class="column justify-evenly align-center flex">
                <span>polygons</span>
                <span id="display-bank-polygon">0</span>
+               <span id="display-bank-polygon-timer"> polygon-timer </span>
             </div>
-            <div id="data" class="column justify-evenly align-center flex" style="border-top-right-radius: 40px;">
+            <div id="data" class="column justify-evenly align-center flex">
                <span>meshes</span>
                <span id="display-bank-mesh">0</span>
+               <span id="display-bank-mesh-timer"> mesh-timer </span>
             </div>
          </div>
+
          <div id="content-container" class="row justify-evenly padding-1 gap wrap grow">
             <div id="left-content" class="column align-center gap wrap">
                <button id="increment-vertex" class="column justify-between">

@@ -78,6 +78,15 @@ polygon {
       height: 90px;
       width: 20%;
       background-color: rgb(176, 182, 168);
+      position: relative;
+      
+   }
+
+   #display-bank-vertex-timer {
+      position: absolute;
+      background-color: gold;
+      height: inherit;
+      align-self:flex-start;
    }
 }
 
