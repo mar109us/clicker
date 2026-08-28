@@ -1,46 +1,69 @@
-const bank = {
-   vertex: document.getElementById("display-bank-vertex"),
-   edge: document.getElementById("display-bank-edge"),
-   polygon: document.getElementById("display-bank-polygon"),
-   mesh: document.getElementById("display-bank-mesh"),
+const view = {
+   bank: {
+      vertex: document.getElementById("display-bank-vertex"),
+      edge: document.getElementById("display-bank-edge"),
+      polygon: document.getElementById("display-bank-polygon"),
+      mesh: document.getElementById("display-bank-mesh"),
+   },
+   vertex: {
+      increment: {
+         button: document.getElementById("increment-vertex"),
+         price: document.getElementById("price-increment-vertex"),
+      },
+      auto: {
+         button: document.getElementById("auto-increment-vertex"),
+         price: document.getElementById("price-auto-increment-vertex"),
+      },
+      bar: {
+         display: document.getElementById("display-bank-vertex-timer"),
+      },
+   },
+   edge: {
+      increment: {
+         button: document.getElementById("increment-edge"),
+         price: document.getElementById("price-increment-edge"),
+      },
+   },
+   polygon: {},
+   mesh: {},
+   svg: document.getElementById("svg-container"),
 };
 
-const vertex = {
-   increment: {
-      button: document.getElementById("increment-vertex"),
-      price: document.getElementById("price-increment-vertex"),
+const data = {
+   bank: {
+      vertex: 10246464640,
    },
-   auto: {
-      button: document.getElementById("auto-increment-vertex"),
-      price: document.getElementById("price-auto-increment-vertex"),
+   vertex: {
+      bar: {
+         step: 0,
+         width: 0,
+      },
+      price: {
+         increment: 1,
+         auto: 1000,
+      },
+      toBank: {
+         increment: 0,
+         auto: 0,
+      },
+      stepValue: {
+         increment: 15,
+         auto: 1000,
+      },
    },
-   bar: {
-      display: document.getElementById("display-bank-vertex-timer"),
-      step: 0,
-      width: 0,
-   }
+   edge: {
+      price: 25,
+   },
+   polygon: {},
+   mesh: {},
 };
-
-const edge = {
-   increment: {
-      button: document.getElementById("increment-edge"),
-      price: document.getElementById("price-increment-edge"),
-   },
-};
-
-let priceEdge = 25;
-let priceVertexAuto = 1;
-
-let bankVertex = 100000;
-let priceVertexIncrement = 1;
-let autoVertexInterval = 0;
 
 let timerInterval = 1000;
 let timerId;
 
-let svgEdgeArray = [];
+let svgPointArray = [];
 let svgEdge = "";
-let svgCurrentEdge;
+let svgCurrentPoints;
 
 let randomPolygonPoint1 = 0;
 let randomPolygonPoint2 = 0;
@@ -49,126 +72,140 @@ let randomColor1;
 let randomColor2;
 let randomColor3;
 
-addEventListener("click", (event) => {
-   if (event.target.id === "increment-vertex") {
-      addPoint();
-   }
-   if (event.target.id === "auto-increment-vertex" || event.target.id === "increment-edge") {
-      buyUpgrade(event.target.id);
-   }
-});
-
+updateView();
 function updateView() {
    updateData();
    checkPrice();
 }
-updateView();
 
 function intervalTask() {
    let widthFraction = 100 / timerInterval;
-   if (vertex.bar.step < timerInterval) {
-      vertex.bar.width += widthFraction;
-      vertex.bar.step += 1;
-      vertex.bar.display.style.width = `${vertex.bar.width}%`;
+   if (data.vertex.bar.step < timerInterval) {
+      data.vertex.bar.width += widthFraction;
+      data.vertex.bar.step += 1;
+      view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
    } else {
-      vertex.bar.step = 0;
-      vertex.bar.width = 0;
-      vertex.bar.display.style.width = `${vertex.bar.width}%`;
-      bankVertex += autoVertexInterval;
+      data.vertex.bar.step = 0;
+      data.vertex.bar.width = 0;
+      view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
+      data.bank.vertex += data.vertex.toBank.auto;
       updateView();
    }
    timerId = setTimeout(intervalTask, 0);
 }
 
 function updateData() {
-   bank.vertex.innerText = bankVertex;
-   vertex.increment.price.innerText = priceVertexIncrement;
-   edge.increment.price.innerText = priceEdge;
-   vertex.auto.price.innerText = priceVertexAuto;
-   bank.polygon.innerText = Math.floor(svgEdgeArray.length / 2 / 3);
+   view.bank.vertex.innerText = data.bank.vertex;
+   view.bank.edge.innerText = calculateEdgeAmount();
+   view.bank.polygon.innerText = calculatePolygonAmount();
+   view.vertex.increment.price.innerText = data.vertex.price.increment;
+   view.edge.increment.price.innerText = data.edge.price;
+   view.vertex.auto.price.innerText = data.vertex.price.auto;
 }
 
-function updatePolygonDisplay() {
-   bank.edge.innerText = svgEdgeArray.length / 2;
+function calculateEdgeAmount() {
+   return svgPointArray.length / 2;
+}
+
+function calculatePolygonAmount() {
+   return Math.floor(svgPointArray.length / 2 / 3);
 }
 
 function checkPrice() {
-   if (bankVertex < priceEdge) {
-      edge.increment.button.disabled = true;
+   if (data.bank.vertex < data.edge.price) {
+      view.edge.increment.button.disabled = true;
+   } else {
+      view.edge.increment.button.disabled = false;
    }
-   if (bankVertex >= priceEdge) {
-      edge.increment.button.disabled = false;
-   }
-   if (bankVertex < priceVertexAuto) {
-      vertex.auto.button.disabled = true;
-   }
-   if (bankVertex >= priceVertexAuto) {
-      vertex.auto.button.disabled = false;
+   if (data.bank.vertex < data.vertex.price.auto) {
+      view.vertex.auto.button.disabled = true;
+   } else {
+      view.vertex.auto.button.disabled = false;
    }
 }
 
 function buyUpgrade(id) {
    if (id === "increment-edge") {
-      bankVertex -= priceEdge;
-      priceVertexIncrement = priceVertexIncrement + 2;
-      priceEdge = priceEdge + 25;
+      data.bank.vertex -= data.edge.price;
+      data.vertex.price.increment = data.vertex.price.increment + 2;
+      data.edge.price = data.edge.price + 25;
 
       updateSVG();
       updateSVGData();
-      updatePolygonDisplay();
    }
    if (id === "auto-increment-vertex") {
-      if (autoVertexInterval === 0) {
-         autoVertexInterval = 1;
+      if (data.vertex.toBank.auto === 0) {
+         data.vertex.toBank.auto = 1;
          timerId = setTimeout(intervalTask, 10);
       } else if (timerInterval === 100) {
-         autoVertexInterval++;
+         data.vertex.toBank.auto += data.vertex.stepValue.increment;
       } else {
          timerInterval = timerInterval - 10;
       }
-      bankVertex -= priceVertexAuto;
-      priceVertexAuto = priceVertexAuto + 1;
+      data.bank.vertex -= data.vertex.price.auto;
+      data.vertex.price.auto += data.vertex.stepValue.auto;
    }
    updateView();
 }
 
 function addPoint() {
-   bankVertex += priceVertexIncrement;
+   data.bank.vertex += data.vertex.price.increment;
    updateView();
 }
 
+function random100() {
+   return Math.floor(Math.random() * 100);
+}
+
+function random1() {
+   return Math.floor(Math.random() * 85) + 170;
+}
+
+function random2() {
+   return Math.floor(Math.random() * 55) + 200;
+}
+
+function random3() {
+   return Math.floor(Math.random() * 45) + 210;
+}
+
 function updateSVGData() {
-   svgEdgeArray.push(Math.floor(Math.random() * 100));
-   svgEdgeArray.push(Math.floor(Math.random() * 100));
+   svgPointArray.push(random100());
+   svgPointArray.push(random100());
 
-   randomPolygonPoint1 = Math.floor(Math.random() * 100);
-   randomPolygonPoint2 = Math.floor(Math.random() * 100);
+   randomPolygonPoint1 = random100();
+   randomPolygonPoint2 = random100();
 
-   randomColor1 = Math.floor(Math.random() * 85) + 170;
-   randomColor2 = Math.floor(Math.random() * 55) + 200;
-   randomColor3 = Math.floor(Math.random() * 45) + 210;
+   randomColor1 = random1();
+   randomColor2 = random2();
+   randomColor3 = random3();
 
    updateView();
 }
 
 function updateSVG() {
-   let polygonString = "";
+   modifyArrayToPolygonPoints();
+   view.svg.innerHTML = componentSVG();
+}
+
+function modifyArrayToPolygonPoints() {
+   let svgArrayAsString = "";
    let count = 0;
-   svgEdgeArray.forEach((polygon) => {
+   svgPointArray.forEach((polygon) => {
       if (count === 0) {
-         polygonString += `${polygon} `;
+         svgArrayAsString += `${polygon} `;
          count++;
       } else {
-         polygonString += `${polygon}`;
-         polygonString += `, `;
+         svgArrayAsString += `${polygon}`;
+         svgArrayAsString += `, `;
          count = 0;
       }
-      svgCurrentEdge = polygonString;
+      svgCurrentPoints = svgArrayAsString;
    });
-   console.log(polygonString);
+}
 
-   document.getElementById("svg-container").innerHTML = `
-   
+function componentSVG() {
+   return `
    <svg id="svg" width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
          <linearGradient id="Gradient1">
@@ -179,7 +216,6 @@ function updateSVG() {
             <stop offset="5%" stop-color="rgb(${randomColor1}, ${randomColor2}, ${randomColor3})" />
             <stop offset="95%" stop-color="rgb(${randomColor3}, ${randomColor3}, ${randomColor1})" />
          </linearGradient>
-
          <pattern id="Pattern" x="0" y="0" width="${randomPolygonPoint1}" height="${randomPolygonPoint1}">
             <rect x="0" y="0" 
             width="${randomPolygonPoint1}" 
@@ -196,8 +232,15 @@ function updateSVG() {
             fill-opacity="0" />
          </pattern>
       </defs>
-   
-      <polygon points=" ${svgCurrentEdge}" fill="url(#Gradient2)"/>
-   </svg>
-    `;
+      <polygon points="${svgCurrentPoints}" fill="url(#Gradient2)"/>
+   </svg>`;
 }
+
+addEventListener("click", (event) => {
+   if (event.target.id === "increment-vertex") {
+      addPoint();
+   }
+   if (event.target.id === "auto-increment-vertex" || event.target.id === "increment-edge") {
+      buyUpgrade(event.target.id);
+   }
+});
