@@ -14,6 +14,11 @@ const vertex = {
       button: document.getElementById("auto-increment-vertex"),
       price: document.getElementById("price-auto-increment-vertex"),
    },
+   bar: {
+      display: document.getElementById("display-bank-vertex-timer"),
+      step: 0,
+      width: 0,
+   }
 };
 
 const edge = {
@@ -59,23 +64,16 @@ function updateView() {
 }
 updateView();
 
-let vertexTimer;
-let displayVertexTimer = document.getElementById("display-bank-vertex-timer");
-
-let intervalVertexTimer;
-
-let count = 0;
-let currentwidth = 0;
 function intervalTask() {
    let widthFraction = 100 / timerInterval;
-   if (count < timerInterval) {
-      currentwidth += widthFraction;
-      count += 1;
-      displayVertexTimer.style.width = `${currentwidth}%`;
+   if (vertex.bar.step < timerInterval) {
+      vertex.bar.width += widthFraction;
+      vertex.bar.step += 1;
+      vertex.bar.display.style.width = `${vertex.bar.width}%`;
    } else {
-      count = 0;
-      currentwidth = 0;
-      displayVertexTimer.style.width = `${currentwidth}%`;
+      vertex.bar.step = 0;
+      vertex.bar.width = 0;
+      vertex.bar.display.style.width = `${vertex.bar.width}%`;
       bankVertex += autoVertexInterval;
       updateView();
    }
