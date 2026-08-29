@@ -18,7 +18,6 @@ button {
 }
 button[disabled] {
    touch-action: none;
-   /* opacity: 0.4; */
 }
 
 span {
@@ -78,15 +77,14 @@ polygon {
    #data {
       height: 120px;
       width: 20%;
-      background-color: rgb(91, 91, 91);
+      background: linear-gradient(160deg, #dac5b3 0%, #acb6a4 25%, #799d8d 50%, #567f70 75%, #515f4f 100%);
+      border: 3px solid black;
       color: black;
       position: relative;
    }
 
    #bank-text {
       align-self: center;
-      /* writing-mode: vertical-rl;
-      text-orientation: upright; */
    }
 
    #display-bank-vertex-timer {
@@ -94,7 +92,9 @@ polygon {
       background: linear-gradient(135deg, #f8e08e 0%, #e2a938 100%);
       height: inherit;
       align-self: flex-start;
-      height: 3px;
+      height: 10px;
+      border-top: 1px solid black;
+      box-shadow: 0px 0px 10px -2px black;
       bottom: 0;
    }
    #set-right {
@@ -125,11 +125,8 @@ polygon {
    }
    button {
       font-size: 1em;
-      width: 40%;
+      width: 200px;
       height: 70px;
-      /* width: 170px;
-      height: 80px; */
-      /* margin: 0px; */
       padding-top: 5px;
       padding-bottom: 5px;
    }
@@ -137,18 +134,18 @@ polygon {
    #left-content {
       background-color: rgb(85, 80, 80);
 
-      max-width: 30%;
-      width: auto;
+      max-width: 40%;
+      /* width: auto; */
    }
 
    #middle-content {
-      min-width: 40%;
-      max-width: 50%;
+      /* min-width: 40%; */
+      /* max-width: 50%; */
 
       #svg-container {
          /* height: auto; */
-         height: auto;
-         width: auto;
+         height: 100%;
+         width: 100%;
          /* width: 100%; */
          /* flex: 1 1 0%; */
          background-color: rgb(219, 208, 185);

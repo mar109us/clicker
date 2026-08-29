@@ -37,6 +37,8 @@ const data = {
       bar: {
          step: 0,
          width: 0,
+         timerInterval: 1000,
+         timerId: undefined,
       },
       price: {
          increment: 1,
@@ -56,21 +58,16 @@ const data = {
    },
    polygon: {},
    mesh: {},
+   svg: {
+      array: [],
+      currentPoints: null,
+      randomPoint1: 0,
+      randomPoint2: 0,
+      randomColor1: 0,
+      randomColor2: 0,
+      randomColor3: 0,
+   },
 };
-
-let timerInterval = 1000;
-let timerId;
-
-let svgPointArray = [];
-let svgEdge = "";
-let svgCurrentPoints;
-
-let randomPolygonPoint1 = 0;
-let randomPolygonPoint2 = 0;
-
-let randomColor1;
-let randomColor2;
-let randomColor3;
 
 updateView();
 function updateView() {
@@ -79,8 +76,8 @@ function updateView() {
 }
 
 function intervalTask() {
-   let widthFraction = 100 / timerInterval;
-   if (data.vertex.bar.step < timerInterval) {
+   let widthFraction = 100 / data.vertex.bar.timerInterval;
+   if (data.vertex.bar.step < data.vertex.bar.timerInterval) {
       data.vertex.bar.width += widthFraction;
       data.vertex.bar.step += 1;
       view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
@@ -91,7 +88,7 @@ function intervalTask() {
       data.bank.vertex += data.vertex.toBank.auto;
       updateView();
    }
-   timerId = setTimeout(intervalTask, 0);
+   data.vertex.bar.timerId = setTimeout(intervalTask, 0);
 }
 
 function updateData() {
@@ -104,11 +101,11 @@ function updateData() {
 }
 
 function calculateEdgeAmount() {
-   return svgPointArray.length / 2;
+   return data.svg.array.length / 2;
 }
 
 function calculatePolygonAmount() {
-   return Math.floor(svgPointArray.length / 2 / 3);
+   return Math.floor(data.svg.array.length / 2 / 3);
 }
 
 function checkPrice() {
@@ -136,11 +133,11 @@ function buyUpgrade(id) {
    if (id === "auto-increment-vertex") {
       if (data.vertex.toBank.auto === 0) {
          data.vertex.toBank.auto = 1;
-         timerId = setTimeout(intervalTask, 10);
-      } else if (timerInterval === 100) {
+         data.vertex.bar.timerId = setTimeout(intervalTask, 10);
+      } else if (data.vertex.bar.timerInterval === 100) {
          data.vertex.toBank.auto += data.vertex.stepValue.increment;
       } else {
-         timerInterval = timerInterval - 10;
+         data.vertex.bar.timerInterval = data.vertex.bar.timerInterval - 10;
       }
       data.bank.vertex -= data.vertex.price.auto;
       data.vertex.price.auto += data.vertex.stepValue.auto;
@@ -170,15 +167,15 @@ function random3() {
 }
 
 function updateSVGData() {
-   svgPointArray.push(random100());
-   svgPointArray.push(random100());
+   data.svg.array.push(random100());
+   data.svg.array.push(random100());
 
-   randomPolygonPoint1 = random100();
-   randomPolygonPoint2 = random100();
+   data.svg.randomPoint1 = random100();
+   data.svg.randomPoint2 = random100();
 
-   randomColor1 = random1();
-   randomColor2 = random2();
-   randomColor3 = random3();
+   data.svg.randomColor1 = random1();
+   data.svg.randomColor2 = random2();
+   data.svg.randomColor3 = random3();
 
    updateView();
 }
@@ -191,7 +188,7 @@ function updateSVG() {
 function modifyArrayToPolygonPoints() {
    let svgArrayAsString = "";
    let count = 0;
-   svgPointArray.forEach((polygon) => {
+   data.svg.array.forEach((polygon) => {
       if (count === 0) {
          svgArrayAsString += `${polygon} `;
          count++;
@@ -200,7 +197,7 @@ function modifyArrayToPolygonPoints() {
          svgArrayAsString += `, `;
          count = 0;
       }
-      svgCurrentPoints = svgArrayAsString;
+      data.svg.currentPoints = svgArrayAsString;
    });
 }
 
@@ -209,30 +206,30 @@ function componentSVG() {
    <svg id="svg" width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
          <linearGradient id="Gradient1">
-            <stop offset="5%" stop-color="rgb(${randomColor3}, ${randomColor2}, ${randomColor1})" />
-            <stop offset="95%" stop-color="rgb(${randomColor1}, ${randomColor1}, ${randomColor3})" />
+            <stop offset="5%" stop-color="rgb(${data.svg.randomColor3}, ${data.svg.randomColor2}, ${data.svg.randomColor1})" />
+            <stop offset="95%" stop-color="rgb(${data.svg.randomColor1}, ${data.svg.randomColor1}, ${data.svg.randomColor3})" />
          </linearGradient>
          <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="5%" stop-color="rgb(${randomColor1}, ${randomColor2}, ${randomColor3})" />
-            <stop offset="95%" stop-color="rgb(${randomColor3}, ${randomColor3}, ${randomColor1})" />
+            <stop offset="5%" stop-color="rgb(${data.svg.randomColor1}, ${data.svg.randomColor2}, ${data.svg.randomColor3})" />
+            <stop offset="95%" stop-color="rgb(${data.svg.randomColor3}, ${data.svg.randomColor3}, ${data.svg.randomColor1})" />
          </linearGradient>
-         <pattern id="Pattern" x="0" y="0" width="${randomPolygonPoint1}" height="${randomPolygonPoint1}">
+         <pattern id="Pattern" x="0" y="0" width="${data.svg.randomPoint1}" height="${data.svg.randomPoint1}">
             <rect x="0" y="0" 
-            width="${randomPolygonPoint1}" 
-            height="${randomPolygonPoint2}" 
-            fill="rgb(${randomColor3}, ${randomColor1}, ${randomColor3})" />
+            width="${data.svg.randomPoint1}" 
+            height="${data.svg.randomPoint2}" 
+            fill="rgb(${data.svg.randomColor3}, ${data.svg.randomColor1}, ${data.svg.randomColor3})" />
             <rect x="0" y="0" 
-            width="${randomPolygonPoint2}" 
-            height="${randomPolygonPoint1}" fill="url(#Gradient2)" />
+            width="${data.svg.randomPoint2}" 
+            height="${data.svg.randomPoint1}" fill="url(#Gradient2)" />
             <circle
-            cx="${randomPolygonPoint2}"
-            cy="${randomPolygonPoint1}"
-            r="${randomPolygonPoint2}"
+            cx="${data.svg.randomPoint2}"
+            cy="${data.svg.randomPoint1}"
+            r="${data.svg.randomPoint2}"
             fill="url(#Gradient1)"
             fill-opacity="0" />
          </pattern>
       </defs>
-      <polygon points="${svgCurrentPoints}" fill="url(#Gradient2)"/>
+      <polygon points="${data.svg.currentPoints}" fill="url(#Gradient2)"/>
    </svg>`;
 }
 
