@@ -31,7 +31,7 @@ const view = {
 
 const data = {
    bank: {
-      vertex: 10246464640,
+      vertex: 0,
    },
    vertex: {
       bar: {
