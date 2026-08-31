@@ -31,7 +31,7 @@ const view = {
 
 const data = {
    bank: {
-      vertex: 0,
+      vertex: 1000000,
    },
    vertex: {
       bar: {
@@ -39,6 +39,8 @@ const data = {
          width: 0,
          timerInterval: 1000,
          timerId: undefined,
+         widthFraction: null,
+         widthFractionAmount: 100,
       },
       price: {
          increment: 1,
@@ -76,19 +78,27 @@ function updateView() {
 }
 
 function intervalTask() {
-   let widthFraction = 100 / data.vertex.bar.timerInterval;
+   data.vertex.bar.widthFraction = data.vertex.bar.widthFractionAmount / data.vertex.bar.timerInterval;
    if (data.vertex.bar.step < data.vertex.bar.timerInterval) {
-      data.vertex.bar.width += widthFraction;
-      data.vertex.bar.step += 1;
-      view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
+      increaseBarWidth();
    } else {
-      data.vertex.bar.step = 0;
-      data.vertex.bar.width = 0;
-      view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
-      data.bank.vertex += data.vertex.toBank.auto;
-      updateView();
+      resetBarWidth();
+      updateData();
    }
    data.vertex.bar.timerId = setTimeout(intervalTask, 0);
+}
+
+function increaseBarWidth() {
+   data.vertex.bar.width += data.vertex.bar.widthFraction;
+   data.vertex.bar.step += 1;
+   view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
+}
+
+function resetBarWidth() {
+   data.vertex.bar.step = 0;
+   data.vertex.bar.width = 0;
+   view.vertex.bar.display.style.width = `${data.vertex.bar.width}%`;
+   data.bank.vertex += data.vertex.toBank.auto;
 }
 
 function updateData() {
@@ -126,7 +136,6 @@ function buyUpgrade(id) {
       data.bank.vertex -= data.edge.price;
       data.vertex.price.increment = data.vertex.price.increment + 2;
       data.edge.price = data.edge.price + 25;
-
       updateSVG();
       updateSVGData();
    }
